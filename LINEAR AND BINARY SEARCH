@@ -1,0 +1,71 @@
+#include<stdio.h>
+
+int linearsearch(int arr[],int n,int x){
+    for(int i=0;i<n;i++){
+        if (arr[i]==x)
+        return i;
+    }
+    return -1;
+} 
+int binarysearch(int arr[], int l, int u, int x) {
+    while(l<= u) {
+        int m = l+(u-l)/2; 
+        if (arr[m] == x)
+            return m;
+        if (arr[m]<x)
+            l = m+1;
+        else{
+            u = m-1;
+        }
+    }
+    return -1;
+ }
+  int binarysearchrec(int arr[], int l, int u, int x){
+    if (l<=u) {
+        int m = l+(u-l)/2;
+        if (arr[m] == x)
+        return m;
+        if (arr[m]<x)
+            return binarysearchrec(arr, m + 1, u, x);
+        else
+            return binarysearchrec(arr, l, m - 1, x);
+    }
+    return -1;
+}
+int main(){
+    int n,x,choice;
+    printf("Enter the no. of elements in the array : ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter %d elements of array :\n", n);
+    for(int i=0;i<n;i++){
+        scanf("%d",&arr[i]);
+    }
+    printf("Enter the element to search : ");
+    scanf("%d",&x);
+    
+    printf("Choose\n");
+    printf("1. Linear Search\n");
+    printf("2. Binary Search\n");
+    printf("3. Binary Search (Recursive)\n");
+    
+    scanf("%d", &choice);
+    int result;
+    switch (choice) {
+        case 1:
+            result = linearsearch(arr,n,x);
+            break;
+        case 2:
+            result = binarysearch(arr, 0, n - 1, x);
+            break;
+        case 3:
+            result = binarysearchrec(arr, 0, n - 1, x);
+            break;
+    }
+     if (result == -1)
+        printf("Element is not present in array\n");
+    else
+        printf("Element is present at index %d\n", result);
+    return 0;
+}
+   
